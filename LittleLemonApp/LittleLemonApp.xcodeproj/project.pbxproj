@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0E8EE702B8CBAD400B76793 /* GlobalStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E8EE6F2B8CBAD400B76793 /* GlobalStyles.swift */; };
+		C0E8EE732B8CBBFB00B76793 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E8EE722B8CBBFB00B76793 /* Onboarding.swift */; };
 		EC6D801129C3C38900A6275C /* LittleLemonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6D801029C3C38900A6275C /* LittleLemonApp.swift */; };
 		EC6D801329C3C38900A6275C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6D801229C3C38900A6275C /* ContentView.swift */; };
 		EC6D801529C3C38A00A6275C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC6D801429C3C38A00A6275C /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C0E8EE6F2B8CBAD400B76793 /* GlobalStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStyles.swift; sourceTree = "<group>"; };
+		C0E8EE722B8CBBFB00B76793 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		EC6D800D29C3C38900A6275C /* LittleLemonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleLemonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6D801029C3C38900A6275C /* LittleLemonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleLemonApp.swift; sourceTree = "<group>"; };
 		EC6D801229C3C38900A6275C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +36,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C0E8EE712B8CBBBD00B76793 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C0E8EE722B8CBBFB00B76793 /* Onboarding.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		EC6D800429C3C38900A6275C = {
 			isa = PBXGroup;
 			children = (
@@ -51,10 +63,12 @@
 		EC6D800F29C3C38900A6275C /* LittleLemonApp */ = {
 			isa = PBXGroup;
 			children = (
+				C0E8EE712B8CBBBD00B76793 /* Views */,
 				EC6D801029C3C38900A6275C /* LittleLemonApp.swift */,
 				EC6D801229C3C38900A6275C /* ContentView.swift */,
 				EC6D801429C3C38A00A6275C /* Assets.xcassets */,
 				EC6D801629C3C38A00A6275C /* Preview Content */,
+				C0E8EE6F2B8CBAD400B76793 /* GlobalStyles.swift */,
 			);
 			path = LittleLemonApp;
 			sourceTree = "<group>";
@@ -138,6 +152,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC6D801329C3C38900A6275C /* ContentView.swift in Sources */,
+				C0E8EE732B8CBBFB00B76793 /* Onboarding.swift in Sources */,
+				C0E8EE702B8CBAD400B76793 /* GlobalStyles.swift in Sources */,
 				EC6D801129C3C38900A6275C /* LittleLemonApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
