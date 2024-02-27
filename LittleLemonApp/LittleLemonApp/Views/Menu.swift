@@ -6,8 +6,39 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct Menu: View {
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    func getMenuData(viewContext: NSManagedObjectContext) {
+        PersistenceController.shared.clear()
+        
+        let url = URL(string: "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json")
+        let request = URLRequest(url: url!)
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request) { data, response, error in
+            if let data = data {
+                let decoder = JSONDecoder()
+                if let fullMenu = try? decoder.decode(MenuList.self, from: data) {
+                    for dish in fullMenu.menu {
+                        let newDish = Dish(context: viewContext)
+                        newDish.title = dish.title
+                        newDish.price = dish.price
+                        newDish.image = dish.image
+                    }
+                    try? viewContext.save()
+                } else {
+                    print(error.debugDescription.description)
+                }
+            } else {
+                print(error.debugDescription.description)
+            }
+        }
+        dataTask.resume()
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             Text("Little Lemon")
@@ -28,6 +59,7 @@ struct Menu: View {
         .padding()
         .background(Color.primaryColor1)
         .frame(maxWidth: .infinity, maxHeight: 200)
+        .onAppear { getMenuData(viewContext: viewContext )}
     }
 }
 
