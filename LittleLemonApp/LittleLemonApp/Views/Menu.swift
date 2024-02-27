@@ -12,6 +12,16 @@ struct Menu: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
+    @State var searchText = ""
+    
+    @State var loaded = false
+    
+    @State var isKeyboardVisible = false
+    
+    init() {
+        UITextField.appearance().clearButtonMode = .whileEditing
+    }
+    
     func getMenuData(viewContext: NSManagedObjectContext) {
         PersistenceController.shared.clear()
         
@@ -55,11 +65,84 @@ struct Menu: View {
             .foregroundColor(.white)
             .font(.leadText())
             .frame(maxWidth: .infinity, alignment: .leading)
+            Text("ORDER FOR DELIVERY!")
+                .font(.sectionTitle())
+                .foregroundColor(.highlightColor2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top)
+                .padding(.leading)
+            TextField("Search menu", text: $searchText)
+                .textFieldStyle(.roundedBorder)
+
+            
+            FetchedObjects(predicate: buildPredicate(),
+                           sortDescriptors: buildSortDescriptors()) {
+                (dishes: [Dish]) in
+                List(dishes) { dish in
+                    NavigationLink(destination: DetailItem(dish: dish)) {
+                        HStack {
+                            VStack {
+                                Text(dish.title ?? "")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .font(.sectionCategories())
+                                    .foregroundColor(.black)
+                                Spacer(minLength: 10)
+                                Spacer(minLength: 5)
+                                Text("$" + (dish.price ?? ""))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .font(.highlightText())
+                                    .foregroundColor(.primaryColor1)
+                                    .monospaced()
+                            }
+                            AsyncImage(url: URL(string: dish.image ?? "")) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(maxWidth: 90, maxHeight: 90)
+                            .clipShape(Rectangle())
+                        }
+                        .padding(.vertical)
+                        .frame(maxHeight: 150)
+
+                    }
+                }
+                .listStyle(.plain)
+            }
+            
         }
-        .padding()
         .background(Color.primaryColor1)
-        .frame(maxWidth: .infinity, maxHeight: 200)
-        .onAppear { getMenuData(viewContext: viewContext )}
+        .frame(maxWidth: .infinity)
+        .onAppear {
+            if !loaded {
+                getMenuData(viewContext: viewContext)
+                loaded = true
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
+            withAnimation {
+                self.isKeyboardVisible = true
+            }
+            
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { notification in
+            withAnimation {
+                self.isKeyboardVisible = false
+            }
+        }
+    }
+    
+    func buildSortDescriptors() -> [NSSortDescriptor] {
+        return [NSSortDescriptor(key: "title",
+                                  ascending: true,
+                                  selector:
+                                    #selector(NSString.localizedStandardCompare))]
+    }
+    
+    func buildPredicate() -> NSPredicate {
+        return searchText == "" ? NSPredicate(value: true) : NSPredicate(format: "title CONTAINS[cd] %@", searchText)
     }
 }
 

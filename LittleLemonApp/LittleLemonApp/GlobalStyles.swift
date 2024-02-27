@@ -38,6 +38,16 @@ extension Font {
     static func leadText() -> Font {
         return Font.custom("Karla", size: 16).weight(.medium)
     }
+    static func sectionCategories() -> Font {
+        return Font.custom("Karla", size: 16).weight(.heavy)
+    }
+    static func highlightText() -> Font {
+        return Font.custom("Karla", size: 14).weight(.medium)
+    }
+    static func sectionTitle() -> Font {
+        return Font.custom("Karla", size: 18).weight(.black)
+    }
+
 }
 
 
