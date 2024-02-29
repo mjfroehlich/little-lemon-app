@@ -33,7 +33,7 @@ struct Onboarding: View {
                         .padding(.bottom)
                     Menu()
                     VStack {
-                        NavigationLink(destination: Home(), isActive: $isLoggedIn) {
+                        NavigationLink(destination: Home(isLoggedIn: $isLoggedIn), isActive: $isLoggedIn) {
                             
                         }
                         Text("First name *")
